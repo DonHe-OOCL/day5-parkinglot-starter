@@ -22,7 +22,7 @@ public class ParkingLot {
     }
 
     public Ticket park(Car car) {
-        if ((int) capacity == DEFAULT_CAPACITY) {
+        if (!checkParkAvailable()) {
             throw new NoAvailablePositionException();
         }
         Ticket ticket = new Ticket();
@@ -39,5 +39,9 @@ public class ParkingLot {
             throw new UnrecognizedParkingTicketException();
         }
         return fetch;
+    }
+
+    public boolean checkParkAvailable() {
+        return capacity < DEFAULT_CAPACITY;
     }
 }
