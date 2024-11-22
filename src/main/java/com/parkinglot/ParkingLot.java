@@ -25,7 +25,7 @@ public class ParkingLot {
         if (!checkParkAvailable()) {
             throw new NoAvailablePositionException();
         }
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(this);
         parkingRecords.put(ticket, car);
         capacity++;
         return ticket;

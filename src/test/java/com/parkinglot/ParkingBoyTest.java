@@ -15,6 +15,8 @@ public class ParkingBoyTest {
     public void should_return_ticket_when_park_given_a_car() {
         // Given
         ParkingBoy boy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot();
+        boy.workInParkingLot(parkingLot);
         Car car = new Car();
         // When
         Ticket ticket = boy.park(car);
@@ -26,6 +28,8 @@ public class ParkingBoyTest {
     public void should_return_car_when_fetch_given_a_ticket() {
         // Given
         ParkingBoy boy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot();
+        boy.workInParkingLot(parkingLot);
         Car car = new Car();
         // When
         Ticket ticket = boy.park(car);
@@ -39,6 +43,8 @@ public class ParkingBoyTest {
     public void should_right_car_when_fetch_given_two_ticket() {
         // Given
         ParkingBoy boy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot();
+        boy.workInParkingLot(parkingLot);
         Car firstCar = new Car();
         Car secondCar = new Car();
 
@@ -58,10 +64,12 @@ public class ParkingBoyTest {
     public void should_print_error_message_when_fetch_given_wrong_ticket() {
         // Given
         ParkingBoy boy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingLot otherParkingLot = new ParkingLot();
+        boy.workInParkingLot(parkingLot);
         Car car = new Car();
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(otherParkingLot);
         // When
-
         UnrecognizedParkingTicketException exception =
                 assertThrows(UnrecognizedParkingTicketException.class, () -> boy.fetch(ticket));
         // Then
@@ -72,6 +80,8 @@ public class ParkingBoyTest {
     public void should_print_error_message_when_fetch_given_used_ticket() {
         // Given
         ParkingBoy boy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot();
+        boy.workInParkingLot(parkingLot);
         Car car = new Car();
         // When
         Ticket ticket = boy.park(car);
@@ -86,6 +96,8 @@ public class ParkingBoyTest {
     public void should_print_error_message_when_park_given_full_parkingLog_and_a_car() {
         // Given
         ParkingBoy boy = new ParkingBoy();
+        ParkingLot parkingLot = new ParkingLot();
+        boy.workInParkingLot(parkingLot);
         List<Car> cars = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             cars.add(new Car());
@@ -105,5 +117,22 @@ public class ParkingBoyTest {
 
         // Then
         assertEquals("No available position.", exception.getMessage());
+    }
+
+    @Test
+    public void should_park_to_first_lot_when_park_given_two_parking_lot() {
+        // Given
+        ParkingBoy boy = new ParkingBoy();
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot seconedParkingLot = new ParkingLot();
+        boy.workInParkingLot(firstParkingLot);
+        boy.workInParkingLot(seconedParkingLot);
+        Car car = new Car();
+
+        // When
+        Ticket ticket = boy.park(car);
+
+        // Then
+        assertEquals(firstParkingLot, ticket.getParkingLot());
     }
 }
