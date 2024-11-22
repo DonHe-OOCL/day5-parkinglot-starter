@@ -1,5 +1,8 @@
 package com.parkinglot;
 
+import com.parkinglot.exception.NoAvailablePositionException;
+import com.parkinglot.exception.UnrecognizedParkingTicketException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +10,8 @@ public class ParkingLot {
 
     private static final Integer DEFAULT_CAPACITY = 10;
     public static final String UNRECOGNIZED_PARKING_TICKET_ERROR_MSG = "Unrecognized parking ticket.";
+
+    public static final String NO_AVAILABLE_ERROR_MSG = "No available position.";
 
     private Integer capacity;
 
@@ -26,7 +31,7 @@ public class ParkingLot {
 
     public Ticket park(Car car) {
         if ((int) capacity == usedSlots) {
-            return null;
+            throw new NoAvailablePositionException();
         }
         Ticket ticket = new Ticket();
         parkingRecords.put(ticket, car);
@@ -34,12 +39,12 @@ public class ParkingLot {
         return ticket;
     }
 
-    public Car fetch(Ticket ticket) throws Exception {
+    public Car fetch(Ticket ticket) {
         Car fetch = parkingRecords.remove(ticket);
         if (fetch != null) {
             usedSlots--;
         } else {
-            throw new Exception(UNRECOGNIZED_PARKING_TICKET_ERROR_MSG);
+            throw new UnrecognizedParkingTicketException();
         }
         return fetch;
     }

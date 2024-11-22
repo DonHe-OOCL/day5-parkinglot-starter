@@ -1,12 +1,12 @@
 package com.parkinglot;
 
+import com.parkinglot.exception.NoAvailablePositionException;
 import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.parkinglot.ParkingLot.UNRECOGNIZED_PARKING_TICKET_ERROR_MSG;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -19,7 +19,12 @@ public class ParkingLotTest {
         Car car = new Car();
 
         // When
-        Ticket ticket = parkingLot.park(car);
+        Ticket ticket = null;
+        try {
+            ticket = parkingLot.park(car);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         // Then
         assertNotNull(ticket);
@@ -58,7 +63,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_nothing_when_park_given_full_parkingLog_and_a_car() {
+    public void should_print_error_message_when_park_given_full_parkingLog_and_a_car() {
         // Given
         ParkingLot parkingLot = new ParkingLot();
         List<Car> cars = new ArrayList<>();
@@ -68,11 +73,18 @@ public class ParkingLotTest {
         Car car = new Car();
 
         // When
-        cars.forEach(parkingLot::park);
-        Ticket ticket = parkingLot.park(car);
+        try {
+            for (Car parkCar : cars) {
+                parkingLot.park(parkCar);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        NoAvailablePositionException exception =
+                assertThrows(NoAvailablePositionException.class, () -> parkingLot.park(car));
 
         // Then
-        assertNull(ticket);
+        assertEquals("No available position.", exception.getMessage());
     }
 
     @Test
@@ -83,12 +95,16 @@ public class ParkingLotTest {
         Ticket ticket = new Ticket();
 
         // When
-        Ticket ignore = parkingLot.park(car);
+        try {
+            Ticket ignore = parkingLot.park(car);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         try {
             Car fetch = parkingLot.fetch(ticket);
         } catch (Exception e) {
             // Then
-            assertEquals(UNRECOGNIZED_PARKING_TICKET_ERROR_MSG, e.getMessage());
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
     }
 
@@ -99,13 +115,18 @@ public class ParkingLotTest {
         Car car = new Car();
 
         // When
-        Ticket ticket = parkingLot.park(car);
+        Ticket ticket = null;
+        try {
+            ticket = parkingLot.park(car);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         try {
             Car fetch = parkingLot.fetch(ticket);
             Car usedFetch = parkingLot.fetch(ticket);
         } catch (Exception e) {
             // Then
-            assertEquals(UNRECOGNIZED_PARKING_TICKET_ERROR_MSG, e.getMessage());
+            assertEquals("Unrecognized parking ticket.", e.getMessage());
         }
     }
 
