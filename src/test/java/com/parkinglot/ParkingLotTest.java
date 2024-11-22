@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.parkinglot.ParkingLot.UNRECOGNIZED_PARKING_TICKET_ERROR_MSG;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -127,7 +128,7 @@ public class ParkingLotTest {
         Car fetch = parkingLot.fetch(ticket);
 
         // Then
-        assertThat(systemOut()).contains("Unrecognized parking ticket.");
+        assertThat(systemOut()).contains(UNRECOGNIZED_PARKING_TICKET_ERROR_MSG);
     }
 
     private String systemOut() {
