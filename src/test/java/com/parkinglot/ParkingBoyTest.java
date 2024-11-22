@@ -164,7 +164,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_right_car_when_parkingBoy_fetch_given_two_ticket() {
+    public void should_right_car_when_parkingBoy_park_different_lot_fetch_given_two_ticket() {
         // Given
         ParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
