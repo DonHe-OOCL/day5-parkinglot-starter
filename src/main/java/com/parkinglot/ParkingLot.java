@@ -15,34 +15,26 @@ public class ParkingLot {
 
     private Integer capacity;
 
-    private Integer usedSlots;
-
     private final Map<Ticket, Car> parkingRecords = new HashMap<>();
 
     public ParkingLot() {
-        capacity = DEFAULT_CAPACITY;
-        usedSlots = 0;
-    }
-
-    public ParkingLot(Integer capacity) {
-        this.capacity = capacity;
-        usedSlots = 0;
+        capacity = 0;
     }
 
     public Ticket park(Car car) {
-        if ((int) capacity == usedSlots) {
+        if ((int) capacity == DEFAULT_CAPACITY) {
             throw new NoAvailablePositionException();
         }
         Ticket ticket = new Ticket();
         parkingRecords.put(ticket, car);
-        usedSlots++;
+        capacity++;
         return ticket;
     }
 
     public Car fetch(Ticket ticket) {
         Car fetch = parkingRecords.remove(ticket);
         if (fetch != null) {
-            usedSlots--;
+            capacity--;
         } else {
             throw new UnrecognizedParkingTicketException();
         }
