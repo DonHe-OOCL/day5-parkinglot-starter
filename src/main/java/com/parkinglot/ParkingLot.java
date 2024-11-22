@@ -34,12 +34,12 @@ public class ParkingLot {
         return ticket;
     }
 
-    public Car fetch(Ticket ticket) {
+    public Car fetch(Ticket ticket) throws Exception {
         Car fetch = parkingRecords.remove(ticket);
         if (fetch != null) {
             usedSlots--;
         } else {
-            System.out.println(UNRECOGNIZED_PARKING_TICKET_ERROR_MSG);
+            throw new Exception(UNRECOGNIZED_PARKING_TICKET_ERROR_MSG);
         }
         return fetch;
     }
