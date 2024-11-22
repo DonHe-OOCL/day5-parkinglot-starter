@@ -135,4 +135,31 @@ public class ParkingBoyTest {
         // Then
         assertEquals(firstParkingLot, ticket.getParkingLot());
     }
+    
+    @Test
+    public void should_park_to_second_lot_when_park_given_first_full_lot() {
+        // Given
+        ParkingBoy boy = new ParkingBoy();
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot seconedParkingLot = new ParkingLot();
+        boy.workInParkingLot(firstParkingLot);
+        boy.workInParkingLot(seconedParkingLot);
+        Car car = new Car();
+        List<Car> cars = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            cars.add(new Car());
+        }
+        try {
+            for (Car parkCar : cars) {
+                boy.park(parkCar);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        // When
+        Ticket ticket = boy.park(car);
+
+        // Then
+        assertEquals(seconedParkingLot, ticket.getParkingLot());
+    }
 }
