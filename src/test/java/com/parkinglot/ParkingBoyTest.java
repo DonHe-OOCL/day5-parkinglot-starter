@@ -168,14 +168,25 @@ public class ParkingBoyTest {
         // Given
         ParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
-        ParkingLot seconedParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
         boy.workInParkingLot(firstParkingLot);
-        boy.workInParkingLot(seconedParkingLot);
+        boy.workInParkingLot(secondParkingLot);
         Car firstCar = new Car();
         Car secondCar = new Car();
+        List<Car> cars = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            cars.add(new Car());
+        }
 
         // When
         Ticket firstTicket = boy.park(firstCar);
+        try {
+            for (Car parkCar : cars) {
+                boy.park(parkCar);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         Ticket secondTicket = boy.park(secondCar);
 
         Car firstFetch = boy.fetch(firstTicket);
@@ -184,6 +195,7 @@ public class ParkingBoyTest {
         // Then
         assertEquals(firstCar, firstFetch);
         assertEquals(secondCar, secondFetch);
+        assertEquals(secondParkingLot, secondTicket.getParkingLot());
     }
 
     @Test
