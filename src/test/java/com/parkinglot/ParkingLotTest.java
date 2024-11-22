@@ -2,6 +2,9 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -87,10 +90,15 @@ public class ParkingLotTest {
     @Test
     public void should_return_nothing_when_park_given_full_parkingLog_and_a_car() {
         // Given
-        ParkingLot parkingLot = new ParkingLot(0);
+        ParkingLot parkingLot = new ParkingLot();
+        List<Car> cars = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            cars.add(new Car());
+        }
         Car car = new Car();
 
         // When
+        cars.forEach(parkingLot::park);
         Ticket ticket = parkingLot.park(car);
 
         // Then
