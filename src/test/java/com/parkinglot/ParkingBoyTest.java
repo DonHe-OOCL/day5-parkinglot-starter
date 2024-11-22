@@ -220,4 +220,33 @@ public class ParkingBoyTest {
         // Then
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
+
+    @Test
+    public void should_print_error_message_when_parkingBoy_work_two_lot_park_given_full_parkingLog_and_a_car() {
+        // Given
+        ParkingBoy boy = new ParkingBoy();
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        boy.workInParkingLot(firstParkingLot);
+        boy.workInParkingLot(secondParkingLot);
+        List<Car> cars = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            cars.add(new Car());
+        }
+        Car car = new Car();
+
+        // When
+        try {
+            for (Car parkCar : cars) {
+                boy.park(parkCar);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        NoAvailablePositionException exception =
+                assertThrows(NoAvailablePositionException.class, () -> boy.park(car));
+
+        // Then
+        assertEquals("No available position.", exception.getMessage());
+    }
 }
