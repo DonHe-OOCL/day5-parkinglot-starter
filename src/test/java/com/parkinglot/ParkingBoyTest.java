@@ -1,7 +1,11 @@
 package com.parkinglot;
 
+import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,5 +66,44 @@ public class ParkingBoyTest {
                 assertThrows(UnrecognizedParkingTicketException.class, () -> boy.fetch(ticket));
         // Then
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_print_error_message_when_fetch_given_used_ticket() {
+        // Given
+        ParkingBoy boy = new ParkingBoy();
+        Car car = new Car();
+        // When
+        Ticket ticket = boy.park(car);
+        boy.fetch(ticket);
+        UnrecognizedParkingTicketException exception =
+                assertThrows(UnrecognizedParkingTicketException.class, () -> boy.fetch(ticket));
+        // Then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_print_error_message_when_park_given_full_parkingLog_and_a_car() {
+        // Given
+        ParkingBoy boy = new ParkingBoy();
+        List<Car> cars = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            cars.add(new Car());
+        }
+        Car car = new Car();
+
+        // When
+        try {
+            for (Car parkCar : cars) {
+                boy.park(parkCar);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        NoAvailablePositionException exception =
+                assertThrows(NoAvailablePositionException.class, () -> boy.park(car));
+
+        // Then
+        assertEquals("No available position.", exception.getMessage());
     }
 }
