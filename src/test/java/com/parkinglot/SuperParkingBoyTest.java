@@ -17,7 +17,7 @@ public class SuperParkingBoyTest {
 
     @Test
     public void
-        should_larger_available_position_rate_parkingLot_when_park_given_different_position_rate_parkingLot()
+    should_larger_available_position_rate_parkingLot_when_park_given_different_position_rate_parkingLot()
             throws NoSuchFieldException, IllegalAccessException {
         // Given
         BaseParkingBoy parkingBoy = new SuperParkingBoy();

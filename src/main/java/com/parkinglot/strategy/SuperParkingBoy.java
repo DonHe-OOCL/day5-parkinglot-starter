@@ -8,7 +8,7 @@ import com.parkinglot.exception.NoAvailablePositionException;
 import java.util.Comparator;
 import java.util.Optional;
 
-public class SuperParkingBoy extends BaseParkingBoy{
+public class SuperParkingBoy extends BaseParkingBoy {
     @Override
     public Ticket park(Car car) {
         Optional<ParkingLot> parkingLotOptional = parkingLots.stream()

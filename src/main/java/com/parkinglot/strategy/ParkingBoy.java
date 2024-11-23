@@ -7,8 +7,7 @@ import com.parkinglot.exception.NoAvailablePositionException;
 
 import java.util.Optional;
 
-public class ParkingBoy extends BaseParkingBoy{
-
+public class ParkingBoy extends BaseParkingBoy {
     @Override
     public Ticket park(Car car) {
         Optional<ParkingLot> parkingLotOptional =
