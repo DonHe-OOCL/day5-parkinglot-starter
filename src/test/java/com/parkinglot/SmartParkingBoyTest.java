@@ -6,11 +6,11 @@ import com.parkinglot.strategy.BaseParkingBoy;
 import com.parkinglot.strategy.SmartParkingBoy;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SmartParkingBoyTest {
 
@@ -28,6 +28,28 @@ public class SmartParkingBoyTest {
         // Then
         assertEquals(19, secondParkingLot.getCurrentCapacity());
         assertEquals(secondParkingLot, ticket.getParkingLot());
+    }
+
+    @Test
+    public void should_first_parkingLot_when_park_given_two_same_space_different_rate_parkingLot_and_a_car()
+            throws NoSuchFieldException, IllegalAccessException {
+        // Given
+        BaseParkingBoy parkingBoy = new SmartParkingBoy();
+        ParkingLot firstParkingLot = new ParkingLot(100);
+        ParkingLot secondParkingLot = new ParkingLot(10);
+        Field currentCapacity = firstParkingLot.getClass().getDeclaredField("currentCapacity");
+        currentCapacity.setAccessible(true);
+        currentCapacity.set(firstParkingLot, 9);
+        currentCapacity.set(secondParkingLot, 9);
+        Car car = new Car();
+        parkingBoy.workInParkingLot(firstParkingLot);
+        parkingBoy.workInParkingLot(secondParkingLot);
+        // When
+        Ticket ticket = parkingBoy.park(car);
+        // Then
+        assertEquals(8, firstParkingLot.getCurrentCapacity());
+        assertEquals(9, secondParkingLot.getCurrentCapacity());
+        assertEquals(firstParkingLot, ticket.getParkingLot());
     }
 
     @Test
