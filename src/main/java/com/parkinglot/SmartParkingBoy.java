@@ -3,14 +3,14 @@ package com.parkinglot;
 import com.parkinglot.exception.NoAvailablePositionException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class ParkingBoy {
-
+public class SmartParkingBoy {
     private final List<ParkingLot> parkingLots = new ArrayList<>();
 
-    public ParkingBoy() {
+    public SmartParkingBoy() {
     }
 
     public void workInParkingLot(ParkingLot lot) {
