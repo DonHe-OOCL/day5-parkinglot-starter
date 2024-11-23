@@ -20,13 +20,13 @@ public class ParkingLot {
     private final Map<Ticket, Car> parkingRecords = new HashMap<>();
 
     public ParkingLot() {
-        currentCapacity = 0;
         capacity = DEFAULT_CAPACITY;
+        currentCapacity = capacity;
     }
 
     public ParkingLot(Integer capacity) {
         this.capacity = capacity;
-        currentCapacity = 0;
+        currentCapacity = capacity;
     }
 
     public Ticket park(Car car) {
@@ -35,14 +35,14 @@ public class ParkingLot {
         }
         Ticket ticket = new Ticket(this);
         parkingRecords.put(ticket, car);
-        currentCapacity++;
+        currentCapacity--;
         return ticket;
     }
 
     public Car fetch(Ticket ticket) {
         Car fetch = parkingRecords.remove(ticket);
         if (fetch != null) {
-            currentCapacity--;
+            currentCapacity++;
         } else {
             throw new UnrecognizedParkingTicketException();
         }
@@ -50,10 +50,10 @@ public class ParkingLot {
     }
 
     public boolean checkParkAvailable() {
-        return currentCapacity < capacity;
+        return currentCapacity > 0;
     }
 
     public Integer getCurrentCapacity() {
-        return capacity - currentCapacity;
+        return currentCapacity;
     }
 }
