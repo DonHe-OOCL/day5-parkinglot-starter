@@ -21,7 +21,7 @@ public class SmartParkingBoy {
         Optional<ParkingLot> parkingLotOptional =
                 parkingLots.stream()
                         .filter(ParkingLot::checkParkAvailable)
-                        .findFirst();
+                        .max(Comparator.comparingInt(ParkingLot::getCurrentCapacity));
         if (parkingLotOptional.isPresent()) {
             return parkingLotOptional.get().park(car);
         }
