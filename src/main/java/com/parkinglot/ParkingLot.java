@@ -57,10 +57,6 @@ public class ParkingLot {
         return currentCapacity;
     }
 
-    public Integer getCapacity() {
-        return capacity;
-    }
-
     public Double getAvailablePositionRate() {
         return (double) currentCapacity / capacity;
     }

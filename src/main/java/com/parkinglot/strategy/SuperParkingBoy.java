@@ -1,22 +1,15 @@
-package com.parkinglot;
+package com.parkinglot.strategy;
 
+import com.parkinglot.Car;
+import com.parkinglot.ParkingLot;
+import com.parkinglot.Ticket;
 import com.parkinglot.exception.NoAvailablePositionException;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 
-public class SmartParkingBoy {
-    private final List<ParkingLot> parkingLots = new ArrayList<>();
-
-    public SmartParkingBoy() {
-    }
-
-    public void workInParkingLot(ParkingLot lot) {
-        parkingLots.add(lot);
-    }
-
+public class SuperParkingBoy extends BaseParkingBoy{
+    @Override
     public Ticket park(Car car) {
         Optional<ParkingLot> parkingLotOptional = parkingLots.stream()
                 .filter(ParkingLot::checkParkAvailable)
@@ -25,10 +18,5 @@ public class SmartParkingBoy {
             return parkingLotOptional.get().park(car);
         }
         throw new NoAvailablePositionException();
-    }
-
-    public Car fetch(Ticket ticket) {
-        ParkingLot parkingLot = ticket.getParkingLot();
-        return parkingLot.fetch(ticket);
     }
 }

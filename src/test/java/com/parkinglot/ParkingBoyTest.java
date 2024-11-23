@@ -2,6 +2,8 @@ package com.parkinglot;
 
 import com.parkinglot.exception.NoAvailablePositionException;
 import com.parkinglot.exception.UnrecognizedParkingTicketException;
+import com.parkinglot.strategy.BaseParkingBoy;
+import com.parkinglot.strategy.ParkingBoy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class ParkingBoyTest {
     @Test
     public void should_return_ticket_when_park_given_a_car() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot parkingLot = new ParkingLot();
         boy.workInParkingLot(parkingLot);
         Car car = new Car();
@@ -27,7 +29,7 @@ public class ParkingBoyTest {
     @Test
     public void should_return_car_when_fetch_given_a_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot parkingLot = new ParkingLot();
         boy.workInParkingLot(parkingLot);
         Car car = new Car();
@@ -42,7 +44,7 @@ public class ParkingBoyTest {
     @Test
     public void should_right_car_when_fetch_given_two_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot parkingLot = new ParkingLot();
         boy.workInParkingLot(parkingLot);
         Car firstCar = new Car();
@@ -63,7 +65,7 @@ public class ParkingBoyTest {
     @Test
     public void should_print_error_message_when_fetch_given_wrong_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot parkingLot = new ParkingLot();
         ParkingLot otherParkingLot = new ParkingLot();
         boy.workInParkingLot(parkingLot);
@@ -79,7 +81,7 @@ public class ParkingBoyTest {
     @Test
     public void should_print_error_message_when_fetch_given_used_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot parkingLot = new ParkingLot();
         boy.workInParkingLot(parkingLot);
         Car car = new Car();
@@ -95,7 +97,7 @@ public class ParkingBoyTest {
     @Test
     public void should_print_error_message_when_park_given_full_parkingLog_and_a_car() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot parkingLot = new ParkingLot();
         boy.workInParkingLot(parkingLot);
         List<Car> cars = new ArrayList<>();
@@ -122,7 +124,7 @@ public class ParkingBoyTest {
     @Test
     public void should_park_to_first_lot_when_park_given_two_parking_lot() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot seconedParkingLot = new ParkingLot();
         boy.workInParkingLot(firstParkingLot);
@@ -139,7 +141,7 @@ public class ParkingBoyTest {
     @Test
     public void should_park_to_second_lot_when_park_given_first_full_lot() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot seconedParkingLot = new ParkingLot();
         boy.workInParkingLot(firstParkingLot);
@@ -166,7 +168,7 @@ public class ParkingBoyTest {
     @Test
     public void should_right_car_when_parkingBoy_park_different_lot_fetch_given_two_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
         boy.workInParkingLot(firstParkingLot);
@@ -201,7 +203,7 @@ public class ParkingBoyTest {
     @Test
     public void should_print_error_message_when_parkingBoy_work_two_lot_fetch_given_wrong_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
         ParkingLot otherParkingLot = new ParkingLot();
@@ -218,7 +220,7 @@ public class ParkingBoyTest {
     @Test
     public void should_print_error_message_when_parkingBoy_work_two_lot_fetch_given_used_ticket() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         Car car = new Car();
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
@@ -236,7 +238,7 @@ public class ParkingBoyTest {
     @Test
     public void should_print_error_message_when_parkingBoy_work_two_lot_park_given_full_parkingLog_and_a_car() {
         // Given
-        ParkingBoy boy = new ParkingBoy();
+        BaseParkingBoy boy = new ParkingBoy();
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
         boy.workInParkingLot(firstParkingLot);
