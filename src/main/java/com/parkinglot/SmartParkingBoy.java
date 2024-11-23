@@ -18,10 +18,9 @@ public class SmartParkingBoy {
     }
 
     public Ticket park(Car car) {
-        Optional<ParkingLot> parkingLotOptional =
-                parkingLots.stream()
-                        .filter(ParkingLot::checkParkAvailable)
-                        .max(Comparator.comparingInt(ParkingLot::getCurrentCapacity));
+        Optional<ParkingLot> parkingLotOptional = parkingLots.stream()
+                .filter(ParkingLot::checkParkAvailable)
+                .max(Comparator.comparingDouble(ParkingLot::getAvailablePositionRate));
         if (parkingLotOptional.isPresent()) {
             return parkingLotOptional.get().park(car);
         }

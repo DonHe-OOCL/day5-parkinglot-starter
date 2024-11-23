@@ -18,8 +18,8 @@ public class SuperParkingBoyTest {
         ParkingLot secondParkingLot = new ParkingLot(100);
         Field currentCapacity = firstParkingLot.getClass().getDeclaredField("currentCapacity");
         currentCapacity.setAccessible(true);
-        currentCapacity.set(firstParkingLot, 1);
-        currentCapacity.set(secondParkingLot, 11);
+        currentCapacity.set(firstParkingLot, 9);
+        currentCapacity.set(secondParkingLot, 9);
         Car car = new Car();
         parkingBoy.workInParkingLot(firstParkingLot);
         parkingBoy.workInParkingLot(secondParkingLot);
