@@ -13,7 +13,7 @@ public class ParkingLot {
 
     public static final String NO_AVAILABLE_ERROR_MSG = "No available position.";
 
-    private Integer capacity;
+    private final Integer capacity;
 
     private Integer currentCapacity;
 
